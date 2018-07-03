@@ -1,13 +1,18 @@
 #!/usr/bin/env groovy
 
-shit {
-    stages {
-        stage('test') {
-            steps {
-                sh 'echo "execute say hello script:"'
-                // body()
-                // sayHello("Peter")
-            }
+node {
+    stage('Example') {
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+            hello()
+        } else {
+            echo 'I execute elsewhere'
         }
     }
+}
+
+
+
+def hello () {
+    echo 'hello'
 }
