@@ -26,7 +26,7 @@ pipeline {
 
 
 
-def call(shit) {
+def shit () {
     def rtMaven = ''
     def buildInfo = ''
     def server = ''
