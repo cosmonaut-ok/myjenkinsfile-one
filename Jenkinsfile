@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent { node { label 'linux' } }
+    agent { node { label 'xxx' } }
 
     options {
         buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '1'))
@@ -12,7 +12,6 @@ pipeline {
             steps {
                 sh 'echo "execute say hello script:"'
                 // sayHello("Peter")
-                shit()
             }
         }
     }
@@ -26,7 +25,7 @@ pipeline {
 
 
 
-def shit () {
+def call(body) {
     def rtMaven = ''
     def buildInfo = ''
     def server = ''
