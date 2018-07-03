@@ -1,0 +1,6 @@
+runPipeline('githubflow') {
+  appName = 'tc-payment-rules'
+  platform = 'chef'
+  role = 'payment-rules'
+  cookbookName = 'tc-payment-rules'
+}
