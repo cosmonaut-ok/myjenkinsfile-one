@@ -11,6 +11,7 @@ pipeline {
         stage('test') {
             steps {
                 sh 'echo "execute say hello script:"'
+                body()
                 // sayHello("Peter")
             }
         }
