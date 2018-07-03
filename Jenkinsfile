@@ -1,63 +1,86 @@
 #!/usr/bin/env groovy
 
+pipeline {
+    agent { node { label 'xxx' } }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '1'))
+    }
+
+    stages {
+        stage('test') {
+            steps {
+                sh 'echo "execute say hello script:"'
+                // sayHello("Peter")
+                shit()
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
 
 
-// Adds a pipeline job to jenkins
-import jenkins.model.Jenkins
-import org.jenkinsci.plugins.workflow.job.WorkflowJob
-import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
-import org.jenkinsci.plugins.workflow.flow.FlowDefinition
-import hudson.plugins.git.GitSCM
-import hudson.plugins.git.UserRemoteConfig
-import com.cloudbees.hudson.plugins.folder.*
 
-// Bring some values in from ansible using the jenkins_script modules wierd "args" approach (these are not gstrings)
-String folderName = "$folderName"
-String jobName = "$jobName"
-String jobScript = "$jobScript"
-String gitRepo = "$gitRepo"
-String gitRepoName = "$gitRepoName"
-String credentialsId = "$credentialsId"
+def call(shit) {
+    def rtMaven = ''
+    def buildInfo = ''
+    def server = ''
 
-Jenkins jenkins = Jenkins.instance // saves some typing
+    // evaluate the body block, and collect configuration into the object
+    def pipelineParams= [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = pipelineParams
+    body()
 
-// Get the folder where this job should be
-def folder = jenkins.getItem(folderName)
-// Create the folder if it doesn't exist
-if (folder == null) {
-  folder = jenkins.createProject(Folder.class, folderName)
-  }
+    pipeline {
+        agent any
 
-// Create the git configuration
-UserRemoteConfig userRemoteConfig = new UserRemoteConfig(gitRepo, gitRepoName, null, credentialsId)
+        options {
+            buildDiscarder(logRotator(numToKeepStr: '3'))
+        }
 
-branches = null
-doGenerateSubmoduleConfigurations = false
-submoduleCfg = null
-browser = null
-gitTool = null
-extensions = []
-GitSCM scm = new GitSCM([userRemoteConfig], branches, doGenerateSubmoduleConfigurations, submoduleCfg, browser, gitTool, extensions)
+        parameters {
+            booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Check if you want to skip tests')
+        }
 
-// Create the workflow
-FlowDefinition flowDefinition = (FlowDefinition) new CpsScmFlowDefinition(scm, jobScript)
+        stages {
+            stage('Checkout Git repository') {
+	              steps {
+                    git branch: pipelineParams.branch, credentialsId: pipelineParams.scmCredentials, url: pipelineParams.scmUrl
+                }
+            }
 
-// Check if the job already exists
-Object job = null
-job = folder.getItem(jobName)
-if (job == null) {
-  oldJob = jenkins.getItem(jobName)
-    if (oldJob.getClass() == WorkflowJob.class) {
-        // Move any existing job into the folder
-	    Items.move(oldJob, folder)
-	      } else {
-	          // Create it if it doesn't
-		      job = folder.createProject(WorkflowJob, jobName)
-		        }
-			}
-			// Add the workflow to the job
-			job.setDefinition(flowDefinition)
+            stage('Maven Build') {
+                steps {
+                    script {
+                	      server = Artifactory.server "jfrog-artifactory"
+                        rtMaven = Artifactory.newMavenBuild()
+                        rtMaven.deployer server: server, releaseRepo: 'company-release', snapshotRepo: 'company-snapshot'
+                        rtMaven.tool = 'Maven 3.5.2'
+                        buildInfo = rtMaven.run pom: pipelineParams.pom, goals: 'clean install -DskipTests=$SKIP_TESTS'
+                    }
+                }
+            }
 
-// Set the branch somehow
-job.save()
+            stage('Upload') {
+                steps {
+                    script {
+                        server.publishBuildInfo buildInfo
+                    }
+                }
+            }
+        }
 
+        post {
+            always {
+                cleanWs()
+                slackNotifier(currentBuild.currentResult)
+            }
+        }
+    }
+}
