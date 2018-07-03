@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+import hudson.plugins.git.*;
 
 node('linux') {
     stage('Example') {
@@ -14,7 +15,7 @@ node('linux') {
 
 
 def hello () {
-    import hudson.plugins.git.*;
+
 
     def scm = new GitSCM("git@github.com:dermeister0/Tests.git")
     scm.branches = [new BranchSpec("*/develop")];
