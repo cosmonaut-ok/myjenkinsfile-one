@@ -9,7 +9,7 @@ node('linux') {
         git changelog: false,
         credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
         poll: false,
-        url: 'git@github.com:ThomasCookOnline/tc-jenkins-ng.git'
+        url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
