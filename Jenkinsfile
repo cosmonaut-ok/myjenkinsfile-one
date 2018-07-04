@@ -21,16 +21,16 @@ node('linux') {
     }
 }
 
-def getDirectoryFiles(dir)
-{
-    def list = []
+// def getDirectoryFiles(dir)
+// {
+//     def list = []
 
-    def dir = new File("path_to_parent_dir")
-    dir.eachFileRecurse (FileType.FILES) { file ->
-        list << file
-    }
-    return list
-}
+//     def dir = new File("path_to_parent_dir")
+//     dir.eachFileRecurse (FileType.FILES) { file ->
+//         list << file
+//     }
+//     return list
+// }
 
 def loadResource(file)
 {
