@@ -16,7 +16,7 @@ def hello () {
     def scm = new GitSCM("git@github.com:cosmonaut-ok/myjenkinsfile-one.git")
     scm.branches = [new BranchSpec("*/master")];
 
-    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(script, "fuckme.groovy")
+    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(loadResource("fuckme.groovy"))
 
     def parent = Jenkins.instance
     def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "The Very New Job!")
