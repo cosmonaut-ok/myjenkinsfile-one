@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 import hudson.plugins.git.*;
+// import groovy.io.FileType;
+import hudson.FilePath;
 
 node('linux') {
     stage('Make Monkey Code!') {
@@ -10,6 +12,17 @@ node('linux') {
             echo 'I execute elsewhere'
         }
     }
+}
+
+def getDirectoryFiles(dir)
+{
+    def list = []
+
+    def dir = new File("path_to_parent_dir")
+    dir.eachFileRecurse (FileType.FILES) { file ->
+        list << file
+    }
+    return list
 }
 
 def hello () {
