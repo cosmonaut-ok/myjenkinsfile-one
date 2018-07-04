@@ -4,6 +4,13 @@ import hudson.plugins.git.*;
 import hudson.FilePath;
 
 node('linux') {
+    stage('Get the fucking repo')
+    {
+        git changelog: false,
+        credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
+        poll: false,
+        url: 'git@github.com:ThomasCookOnline/tc-jenkins-ng.git'
+    }
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
@@ -23,6 +30,12 @@ def getDirectoryFiles(dir)
         list << file
     }
     return list
+}
+
+def loadResource(file)
+{
+    String fileContents = new File('/path/to/file').text
+    return fileContents
 }
 
 def hello () {
