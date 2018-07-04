@@ -34,7 +34,7 @@ node('linux') {
 
 def loadResource(file)
 {
-    String fileContents = new File('/path/to/file').text
+    String fileContents = new File(file).text
     return fileContents
 }
 
