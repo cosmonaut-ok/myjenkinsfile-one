@@ -12,18 +12,14 @@ node('linux') {
     }
 }
 
-
-
 def hello () {
+    def scm = new GitSCM("git@github.com:cosmonaut-ok/myjenkinsfile-one.git")
+    scm.branches = [new BranchSpec("*/master")];
 
-
-    def scm = new GitSCM("git@github.com:dermeister0/Tests.git")
-    scm.branches = [new BranchSpec("*/develop")];
-
-    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition(scm, "Jenkinsfile")
+    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition(scm, "Jenkinsfile-slave")
 
     def parent = Jenkins.instance
-    def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "New Job")
+    def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "The Very New Job!")
     job.definition = flowDefinition
 
     parent.reload()
