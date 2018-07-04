@@ -2,7 +2,7 @@
 import hudson.plugins.git.*;
 
 node('linux') {
-    stage('Example') {
+    stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             hello()
