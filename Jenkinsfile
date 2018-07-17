@@ -38,7 +38,7 @@ def loadResource(file)
     return fileContents
 }
 
-def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git", branch = "*/master", args = "themotherfucker" container='nodejs-6.11')
+def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git", branch = "*/master", args = "themotherfucker", container='nodejs-6.11')
 {
 // def hello () {
     def scm = new GitSCM(scm_url)
@@ -55,7 +55,7 @@ set -x
 sh 'npm prune'
 sh 'npm install'
 sh 'rm -rf ${allure_path}'
-sh 'node run $args'
+sh 'node run ${args}'
 '''
 
 allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
