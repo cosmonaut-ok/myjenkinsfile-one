@@ -51,7 +51,9 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
         """
 import hudson.FilePath;
 
-dockerNode(image: '${container}') {
+// dockerNode(image: '${container}') {
+docker.image("${container}") {
+
   // stage('motherfucker') {
     sh '''
     set -x
