@@ -38,7 +38,8 @@ def loadResource(file)
     return fileContents
 }
 
-def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git", branch = "*/master", args = "themotherfucker", container='nodejs-6.11')
+def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git",
+                           branch = "*/master", args = "themotherfucker", container='node:8')
 {
 // def hello () {
     def scm = new GitSCM(scm_url)
