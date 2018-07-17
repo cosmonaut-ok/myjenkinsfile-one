@@ -55,7 +55,7 @@ set -x
 sh 'npm prune'
 sh 'npm install'
 sh 'rm -rf ${allure_path}'
-sh 'node run ${args}'
+sh 'node run $args'
 '''
 
 allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
