@@ -38,11 +38,18 @@ def loadResource(file)
     return fileContents
 }
 
-def hello () {
-    def scm = new GitSCM("git@github.com:cosmonaut-ok/myjenkinsfile-one.git")
-    scm.branches = [new BranchSpec("*/master")];
+def create_automation_job (scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git", branch = "*/master", args = "themotherfucker")
+{
+// def hello () {
+    def scm = new GitSCM(scm_url)
+    scm.branches = [new BranchSpec(branch)];
 
-    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(loadResource("fuckme.groovy"), true)
+    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
+        '''
+        // loadResource("fuckme.groovy"),
+        echo 'hello world'
+''',
+        true)
 
     def parent = Jenkins.instance
     def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "The Very New Job!")

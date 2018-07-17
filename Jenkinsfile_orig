@@ -1,0 +1,41 @@
+runPipeline('parametrizedrun') {
+    appName = 'OneWebSystemAPItests'
+    platform = 'nodejs'
+    baseContainerVersion = '7.8.0' // ++
+
+    test_job('name') {
+        // git_repo = 'github.com/ThomasCookOnline/zzz'
+        cmd 'node run one two three'
+        allure {
+            result = 'allure_result'
+            }
+        junit {
+            pattern = 'report.xml'
+            failed_threshold = '5, 10, 0, 0'
+            skipped_threshold = '5, 10, 0, 0'
+        }
+    }
+
+    management_job('name') {
+        properties(
+            [
+                parameters
+                (
+                    [
+                        booleanParam(defaultValue: true, description: '', name: 'bool1'),
+                        choice(choices: ['one two three'], description: '', name: 'string'),
+                        hoice1(defaultValue: 'value1', description: '', name: 'string1', trim: false)
+                    ]
+                )
+            ]
+        )
+        parallel = true
+        downstream(
+            [
+                job1(parameter1),
+                job2(parameter2),
+                etc(foo.bar)
+            ]
+        )
+    }
+}
