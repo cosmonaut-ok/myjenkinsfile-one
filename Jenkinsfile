@@ -52,7 +52,7 @@ def create_automation_job (name, scm_url = "git@github.com:ThomasCookOnline/Digi
 import hudson.FilePath;
 
 node('linux') {
-docker.image('${container}').inside("-u node") {
+docker.image('${container}').inside("-u 1000:996") {
 
   // stage('motherfucker') {
     sh '''
