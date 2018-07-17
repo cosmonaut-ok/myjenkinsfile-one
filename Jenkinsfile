@@ -14,7 +14,7 @@ node('linux') {
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
-            hello()
+            create_automation_job()
         } else {
             echo 'I execute elsewhere'
         }
@@ -38,7 +38,7 @@ def loadResource(file)
     return fileContents
 }
 
-def create_automation_job (scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git", branch = "*/master", args = "themotherfucker")
+def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git", branch = "*/master", args = "themotherfucker")
 {
 // def hello () {
     def scm = new GitSCM(scm_url)
@@ -52,7 +52,7 @@ def create_automation_job (scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-
         true)
 
     def parent = Jenkins.instance
-    def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, "The Very New Job!")
+    def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, name)
     job.definition = flowDefinition
 
     parent.reload()
