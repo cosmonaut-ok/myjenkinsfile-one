@@ -52,6 +52,9 @@ def create_automation_job (name, scm_url = "git@github.com:ThomasCookOnline/Digi
 import hudson.FilePath;
 
 node('linux') {
+
+git credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a', url: '${scm_url}'
+
 docker.image('${container}').inside("-u 1000:996") {
 
   // stage('motherfucker') {
