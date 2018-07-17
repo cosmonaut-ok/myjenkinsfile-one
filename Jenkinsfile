@@ -38,7 +38,7 @@ def loadResource(file)
     return fileContents
 }
 
-def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git",
+def create_automation_job (name, scm_url = "git@github.com:ThomasCookOnline/DigitalAutomationTesting.git",
                            branch = "*/master", args = "themotherfucker", container='node:8-slim')
 {
 // def hello () {
@@ -52,7 +52,7 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
 import hudson.FilePath;
 
 node('linux') {
-docker.image('${container}').withRun() { c ->
+docker.image('${container}').inside {
 
   // stage('motherfucker') {
     sh '''
