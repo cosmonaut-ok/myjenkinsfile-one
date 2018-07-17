@@ -49,6 +49,8 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
 
     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
         """
+import hudson.FilePath;
+
 dockerNode(image: '${container}', sideContainers: ['']) {
 stage('motherfucker') {
 sh '''
