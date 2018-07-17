@@ -52,18 +52,18 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
 import hudson.FilePath;
 
 dockerNode(image: '${container}') {
-stage('motherfucker') {
-sh '''
-set -x
+  // stage('motherfucker') {
+    sh '''
+    set -x
 
-sh 'npm prune'
-sh 'npm install'
-sh 'rm -rf ${allure_path}'
-sh 'node run ${args}'
-'''
+    sh 'npm prune'
+    sh 'npm install'
+    sh 'rm -rf ${allure_path}'
+    sh 'node run ${args}'
+    '''
 
-allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
-}
+    // allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
+  // }
 }
 """, true)
 
