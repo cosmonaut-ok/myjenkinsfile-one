@@ -14,7 +14,7 @@ node('linux') {
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
-            create_automation_job()
+            create_automation_job("gogogo")
         } else {
             echo 'I execute elsewhere'
         }
