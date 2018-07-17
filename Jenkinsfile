@@ -47,8 +47,14 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
         """
         // loadResource("fuckme.groovy"),
-        echo 'hello world'
-        sh 'npm run $args'
+        sh '''
+        set -x
+
+        sh 'npm prune'
+        sh 'npm install'
+        sh 'rm -rf allure-results'
+        sh 'node run $args'
+        '''
 """,
         true)
 
