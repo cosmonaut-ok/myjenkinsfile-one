@@ -48,6 +48,7 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
         '''
         // loadResource("fuckme.groovy"),
         echo 'hello world'
+        sh 'npm run $args'
 ''',
         true)
 
