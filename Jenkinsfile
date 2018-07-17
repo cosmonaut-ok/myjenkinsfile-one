@@ -49,7 +49,8 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
 
     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
         """
-// dockerNode(image: '${container}', sideContainers: ['']) {
+dockerNode(image: '${container}', sideContainers: ['']) {
+stage('motherfucker') {
 sh '''
 set -x
 
@@ -60,7 +61,8 @@ sh 'node run ${args}'
 '''
 
 allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
-// }
+}
+}
 """, true)
 
     def parent = Jenkins.instance
