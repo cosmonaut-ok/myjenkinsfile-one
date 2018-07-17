@@ -39,7 +39,7 @@ def loadResource(file)
 }
 
 def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkinsfile-one.git",
-                           branch = "*/master", args = "themotherfucker", container='node:8')
+                           branch = "*/master", args = "themotherfucker", container='node:8-slim')
 {
 // def hello () {
     def scm = new GitSCM(scm_url)
@@ -51,7 +51,7 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
         """
 import hudson.FilePath;
 
-dockerNode(image: '${container}', sideContainers: ['']) {
+dockerNode(image: '${container}') {
 stage('motherfucker') {
 sh '''
 set -x
