@@ -39,7 +39,7 @@ def loadResource(file)
 }
 
 def create_automation_job (name, scm_url = "git@github.com:ThomasCookOnline/DigitalAutomationTesting.git",
-                           branch = "*/master", args = "themotherfucker", container='node:8-slim')
+                           branch = "*/master", args = "themotherfucker", container='node:8')
 {
 // def hello () {
     def scm = new GitSCM(scm_url)
