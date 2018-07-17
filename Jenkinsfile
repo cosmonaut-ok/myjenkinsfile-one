@@ -51,8 +51,7 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
         """
 import hudson.FilePath;
 
-// dockerNode(image: '${container}') {
-docker.image('${container}') {
+docker.image('${container}').withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3306:3306') { c ->
 
   // stage('motherfucker') {
     sh '''
