@@ -38,7 +38,7 @@ def loadResource(file)
     return fileContents
 }
 
-def create_automation_job (name, scm_url = "git@github.com:ThomasCookOnline/DigitalAutomationTesting.git",
+def create_automation_job (name, scm_url = "https://github.com/ThomasCookOnline/DigitalAutomationTesting.git",
                            branch = "*/master", args = "themotherfucker", container='node:8')
 {
 // def hello () {
