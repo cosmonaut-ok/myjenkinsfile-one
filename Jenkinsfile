@@ -45,11 +45,11 @@ def create_automation_job (name, scm_url = "git@github.com:cosmonaut-ok/myjenkin
     scm.branches = [new BranchSpec(branch)];
 
     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
-        '''
+        """
         // loadResource("fuckme.groovy"),
         echo 'hello world'
         sh 'npm run $args'
-''',
+""",
         true)
 
     def parent = Jenkins.instance
