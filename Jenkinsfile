@@ -58,10 +58,10 @@ docker.image('${container}').withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3
     sh '''
     set -x
 
-    sh 'npm prune'
-    sh 'npm install'
-    sh 'rm -rf ${allure_path}'
-    sh 'node run ${args}'
+    npm prune
+    npm install
+    rm -rf ${allure_path}
+    node run ${args}
     '''
 
     // allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
