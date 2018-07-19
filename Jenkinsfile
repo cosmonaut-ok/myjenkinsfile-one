@@ -2,6 +2,7 @@
 import hudson.plugins.git.*;
 // import groovy.io.FileType;
 import hudson.FilePath;
+import hudson.FileType;
 
 node('linux') {
     stage('Get the fucking repo')
