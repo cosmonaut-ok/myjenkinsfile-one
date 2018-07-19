@@ -7,6 +7,7 @@ node('linux') {
     stage('Get the fucking repo')
     {
         checkout scm
+        sh 'ls -lhrt'
         // git changelog: false,
         //     credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
         //     poll: true,
@@ -15,6 +16,7 @@ node('linux') {
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
+            sh 'ls -lhrt'
             create_automation_job("gogogo")
         } else {
             echo 'I execute elsewhere'
