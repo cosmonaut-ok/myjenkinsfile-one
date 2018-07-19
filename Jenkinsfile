@@ -3,6 +3,8 @@ import hudson.plugins.git.*;
 // import groovy.io.FileType;
 import hudson.FilePath;
 
+def zzz = getDirectoryFiles("jobs")
+
 node('linux') {
     stage('Get the fucking repo')
     {
@@ -16,7 +18,7 @@ node('linux') {
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
-            echo getDirectoryFiles("jobs")
+            echo zzz
 
             create_automation_job("gogogo-1")
         } else {
