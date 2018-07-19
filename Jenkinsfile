@@ -4,6 +4,10 @@ import hudson.plugins.git.*;
 import hudson.FilePath;
 import groovy.io.FileType;
 
+// for view
+import jenkins.model.Jenkins
+import hudson.model.ListView
+
 node('linux') {
     stage('Get the fucking repo')
     {
@@ -94,5 +98,25 @@ node('linux') {
 }
 
 
-// def create_
-// loadResource('jobs/simple_automation_job.groovy')
+def create_job_view(name)
+{
+    // get Jenkins instance
+    def jenkins_instance = Jenkins.getInstance()
+
+    // create the new view
+    jenkins.addView(new ListView(name))
+
+    // // get the view
+    // def myView = hudson.model.Hudson.instance.getView(name)
+
+    // // add a job by its name
+    // myView.doAddJobToView('MyJob1')
+    // myView.doAddJobToView('MyJob2')
+    // myView.doAddJobToView('MyJob3')
+
+    // save current Jenkins state to disk
+    jenkins.save()
+
+    // def create_
+    // loadResource('jobs/simple_automation_job.groovy')
+}
