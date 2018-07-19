@@ -26,6 +26,7 @@ node('linux') {
                 echo "${it}"
             }
 
+            create_job_view('my_view')
             create_automation_job("gogogo-1")
         } else {
             echo 'I execute elsewhere'
