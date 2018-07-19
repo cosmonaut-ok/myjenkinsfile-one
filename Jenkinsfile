@@ -18,7 +18,9 @@ node('linux') {
         def zzz = getDirectoryFiles("jobs")
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
-            echo zzz
+            zzz.each {
+                echo it
+            }
 
             create_automation_job("gogogo-1")
         } else {
