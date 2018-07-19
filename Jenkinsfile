@@ -16,28 +16,26 @@ node('linux') {
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
-            sh 'ls -lhrt'
+            echo getDirectoryFiles("jobs")
 
-            def rootDir = pwd()
-            println("Current Directory: " + rootDir)
-
-            create_automation_job("gogogo")
+            create_automation_job("gogogo-1")
         } else {
             echo 'I execute elsewhere'
         }
     }
 }
 
-// def getDirectoryFiles(dir)
-// {
-//     def list = []
+def getDirectoryFiles(dir)
+{
+    def rootDir = pwd()
+    def list = []
 
-//     def dir = new File("path_to_parent_dir")
-//     dir.eachFileRecurse (FileType.FILES) { file ->
-//         list << file
-//     }
-//     return list
-// }
+    def dir = new File("${rootDir}/${dir}")
+    dir.eachFileRecurse (FileType.FILES) { file ->
+        list << file
+    }
+    return list
+}
 
 def loadResource(file)
 {
@@ -58,7 +56,31 @@ def create_automation_job (name, scm_url = "https://github.com/ThomasCookOnline/
     def allure_path = 'allure-results'
 
     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
-        loadResource('jobs/simple_automation_job.groovy'), true)
+        """
+import hudson.FilePath;
+
+node('linux') {
+
+    git credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a', url: '${scm_url}'
+
+    docker.image('${container}').inside("-u 1000:996") {
+
+        // stage('motherfucker') {
+        sh '''
+        set -x
+
+    npm prune
+    npm install
+    rm -rf ${allure_path}
+    node run ${args}
+    '''
+
+        // allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
+        // }
+    }
+}
+
+""", true)
 
     def parent = Jenkins.instance
     def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, name)
@@ -66,3 +88,7 @@ def create_automation_job (name, scm_url = "https://github.com/ThomasCookOnline/
 
     parent.reload()
 }
+
+
+// def create_
+// loadResource('jobs/simple_automation_job.groovy')
