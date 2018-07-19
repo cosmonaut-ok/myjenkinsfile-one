@@ -102,10 +102,13 @@ node('linux') {
 def create_job_view(name)
 {
     // get Jenkins instance
-    def jenkins_instance = Jenkins.getInstance()
+    def jenkinsInstance = Jenkins.getInstance()
 
+    def isView = jenkins_instance.getView(name)
     // create the new view
-    jenkins_instance.addView(new ListView(name))
+    if (!isView) {
+        jenkinsInstance.addView(new ListView(name))
+    }
 
     // // get the view
     // def myView = hudson.model.Hudson.instance.getView(name)
@@ -116,7 +119,7 @@ def create_job_view(name)
     // myView.doAddJobToView('MyJob3')
 
     // save current Jenkins state to disk
-    jenkins_instance.save()
+    jenkinsInstance.save()
 
     // def create_
     // loadResource('jobs/simple_automation_job.groovy')
