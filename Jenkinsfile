@@ -104,7 +104,7 @@ def create_job_view(name)
     // get Jenkins instance
     def jenkinsInstance = Jenkins.getInstance()
 
-    def isView = jenkins_instance.getView(name)
+    def isView = jenkinsInstance.getView(name)
     // create the new view
     if (!isView) {
         jenkinsInstance.addView(new ListView(name))
