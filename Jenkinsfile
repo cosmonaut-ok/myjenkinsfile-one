@@ -17,6 +17,10 @@ node('linux') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             sh 'ls -lhrt'
+
+            def rootDir = pwd()
+            println("Current Directory: " + rootDir)
+
             create_automation_job("gogogo")
         } else {
             echo 'I execute elsewhere'
@@ -37,6 +41,9 @@ node('linux') {
 
 def loadResource(file)
 {
+    def rootDir = pwd()
+    println("Current Directory from loadResource: " + rootDir)
+
     String fileContents = new File(file).text
     return fileContents
 }
@@ -51,7 +58,7 @@ def create_automation_job (name, scm_url = "https://github.com/ThomasCookOnline/
     def allure_path = 'allure-results'
 
     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
-        loadResource('./jobs/simple_automation_job.groovy'), true)
+        loadResource('jobs/simple_automation_job.groovy'), true)
 
     def parent = Jenkins.instance
     def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, name)
