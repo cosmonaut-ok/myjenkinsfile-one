@@ -116,7 +116,7 @@ def create_job_view(name)
     // myView.doAddJobToView('MyJob3')
 
     // save current Jenkins state to disk
-    jenkins.save()
+    jenkins_instance.save()
 
     // def create_
     // loadResource('jobs/simple_automation_job.groovy')
