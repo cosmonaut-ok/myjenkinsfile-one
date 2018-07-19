@@ -3,8 +3,6 @@ import hudson.plugins.git.*;
 // import groovy.io.FileType;
 import hudson.FilePath;
 
-def zzz = getDirectoryFiles("jobs")
-
 node('linux') {
     stage('Get the fucking repo')
     {
@@ -16,6 +14,7 @@ node('linux') {
         //     url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
+        def zzz = getDirectoryFiles("jobs")
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             echo zzz
