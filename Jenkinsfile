@@ -105,7 +105,7 @@ def create_job_view(name)
     def jenkins_instance = Jenkins.getInstance()
 
     // create the new view
-    jenkins.addView(new ListView(name))
+    jenkins_instance.addView(new ListView(name))
 
     // // get the view
     // def myView = hudson.model.Hudson.instance.getView(name)
