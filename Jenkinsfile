@@ -30,8 +30,8 @@ def getDirectoryFiles(dir)
     def rootDir = pwd()
     def list = []
 
-    def dir = new File("${rootDir}/${dir}")
-    dir.eachFileRecurse (FileType.FILES) { file ->
+    def listDir = new File("${rootDir}/${dir}")
+    listDir.eachFileRecurse (FileType.FILES) { file ->
         list << file
     }
     return list
