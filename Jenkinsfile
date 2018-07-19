@@ -19,7 +19,7 @@ node('linux') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             zzz.each {
-                echo it
+                echo "${it}"
             }
 
             create_automation_job("gogogo-1")
