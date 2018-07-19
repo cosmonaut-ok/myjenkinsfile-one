@@ -6,7 +6,7 @@ import hudson.FilePath;
 node('linux') {
     stage('Get the fucking repo')
     {
-        checkout scm
+        // checkout scm
         // git changelog: false,
         //     credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
         //     poll: true,
