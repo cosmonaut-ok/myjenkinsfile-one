@@ -41,7 +41,7 @@ node('linux') {
 
 def loadResource(file)
 {
-    // def rootDir = pwd()
+    def rootDir = pwd()
     // println("Current Directory from loadResource: " + rootDir)
 
     String fileContents = new File("${rootDir}/${file}").text
