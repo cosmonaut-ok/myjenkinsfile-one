@@ -6,10 +6,11 @@ import hudson.FilePath;
 node('linux') {
     stage('Get the fucking repo')
     {
-        git changelog: false,
-            credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
-            poll: true,
-            url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
+        checkout scm
+        // git changelog: false,
+        //     credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
+        //     poll: true,
+        //     url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
         if (env.BRANCH_NAME == 'master') {
