@@ -21,7 +21,7 @@ node('linux') {
         //     url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
-        def zzz = getWorkspaceDirectoryFiles("jobs")
+        def zzz = Filesystem.getWorkspaceDirectoryFiles("jobs")
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             zzz.each {
