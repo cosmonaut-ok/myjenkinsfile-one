@@ -36,7 +36,7 @@ node('linux') {
             }
 
             manageView.createJenkinsView('my_view')
-            jobCreator.JobFromFile("simple_automation_job")
+            jobCreator.jobFromFile("simple_automation_job")
 
         } else {
             echo 'I execute elsewhere'
