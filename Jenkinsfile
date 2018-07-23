@@ -8,7 +8,7 @@ import groovy.io.FileType;
 import jenkins.model.Jenkins
 import hudson.model.ListView
 
-import com.elevenware.jenkins.pipelines.functions
+import com.elevenware.jenkins.pipelines.functions.Filesystem
 
 node('linux') {
     stage('Get the fucking repo')
