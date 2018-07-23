@@ -8,6 +8,8 @@ import groovy.io.FileType;
 import jenkins.model.Jenkins
 import hudson.model.ListView
 
+import com.elevenware.jenkins.pipelines.functions
+
 node('linux') {
     stage('Get the fucking repo')
     {
@@ -19,11 +21,11 @@ node('linux') {
         //     url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
-        def zzz = getDirectoryFiles("jobs")
+        def zzz = getWorkspaceDirectoryFiles("jobs")
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             zzz.each {
-                echo "${it}"
+                echo "${it}\n"
             }
 
             create_job_view('my_view')
@@ -99,28 +101,28 @@ node('linux') {
 }
 
 
-def create_job_view(name)
-{
-    // get Jenkins instance
-    def jenkinsInstance = Jenkins.getInstance()
+// def create_job_view(name)
+// {
+//     // get Jenkins instance
+//     def jenkinsInstance = Jenkins.getInstance()
 
-    def isView = jenkinsInstance.getView(name)
-    // create the new view
-    if (!isView) {
-        jenkinsInstance.addView(new ListView(name))
-    }
+//     def isView = jenkinsInstance.getView(name)
+//     // create the new view
+//     if (!isView) {
+//         jenkinsInstance.addView(new ListView(name))
+//     }
 
-    // // get the view
-    // def myView = hudson.model.Hudson.instance.getView(name)
+//     // // get the view
+//     // def myView = hudson.model.Hudson.instance.getView(name)
 
-    // // add a job by its name
-    // myView.doAddJobToView('MyJob1')
-    // myView.doAddJobToView('MyJob2')
-    // myView.doAddJobToView('MyJob3')
+//     // // add a job by its name
+//     // myView.doAddJobToView('MyJob1')
+//     // myView.doAddJobToView('MyJob2')
+//     // myView.doAddJobToView('MyJob3')
 
-    // save current Jenkins state to disk
-    jenkinsInstance.save()
+//     // save current Jenkins state to disk
+//     jenkinsInstance.save()
 
-    // def create_
-    // loadResource('jobs/simple_automation_job.groovy')
-}
+//     // def create_
+//     // loadResource('jobs/simple_automation_job.groovy')
+// }
