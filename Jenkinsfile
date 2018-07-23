@@ -9,6 +9,10 @@ import jenkins.model.Jenkins
 import hudson.model.ListView
 
 import com.elevenware.jenkins.pipelines.functions.Filesystem
+import com.elevenware.jenkins.pipelines.helpers.ManageView
+
+fs = new Filesystem()
+manageView = new ManageView()
 
 node('linux') {
     stage('Get the fucking repo')
@@ -21,7 +25,7 @@ node('linux') {
         //     url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
-        fs = new Filesystem()
+
         def zzz = fs.getWorkspaceDirectoryFiles("jobs")
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
@@ -29,7 +33,7 @@ node('linux') {
                 echo "${it}\n"
             }
 
-            create_job_view('my_view')
+            manageView.createJenkinsView('my_view')
             create_automation_job("gogogo-1")
         } else {
             echo 'I execute elsewhere'
