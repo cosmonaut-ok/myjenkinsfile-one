@@ -8,7 +8,7 @@ import groovy.io.FileType;
 import jenkins.model.Jenkins
 import hudson.model.ListView
 
-import com.elevenware.jenkins.pipelines.functions.*
+import com.elevenware.jenkins.pipelines.functions.Filesystem
 
 node('linux') {
     stage('Get the fucking repo')
@@ -21,7 +21,8 @@ node('linux') {
         //     url: 'https://github.com/cosmonaut-ok/myjenkinsfile-one.git'
     }
     stage('Make Monkey Code!') {
-        def zzz = Filesystem.getWorkspaceDirectoryFiles("jobs")
+        fs = new Filesystem()
+        def zzz = fs.getWorkspaceDirectoryFiles("jobs")
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
             zzz.each {
