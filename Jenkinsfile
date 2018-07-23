@@ -10,9 +10,11 @@ import hudson.model.ListView
 
 import com.elevenware.jenkins.pipelines.functions.Filesystem
 import com.elevenware.jenkins.pipelines.helpers.ManageView
+import com.elevenware.jenkins.pipelines.helpers.JobFromFile
 
 fs = new Filesystem()
 manageView = new ManageView()
+jobCreator = new JobFromFile()
 
 node('linux') {
     stage('Get the fucking repo')
@@ -34,7 +36,8 @@ node('linux') {
             }
 
             manageView.createJenkinsView('my_view')
-            create_automation_job("gogogo-1")
+            jobCreator.JobFromFile("simple_automation_job")
+
         } else {
             echo 'I execute elsewhere'
         }
