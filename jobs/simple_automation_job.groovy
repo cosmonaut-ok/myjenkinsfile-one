@@ -16,6 +16,28 @@ node('linux') {
               [[credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
                 url: 'https://github.com/ThomasCookOnline/DigitalAutomationTesting.git']]])
 
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name: '*/master']],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [
+            [
+                $class: 'SubmoduleOption',
+                disableSubmodules: false,
+                parentCredentials: false,
+                recursiveSubmodules: true,
+                reference: '', trackingSubmodules: false
+            ]
+        ],
+        submoduleCfg: [],
+        userRemoteConfigs:
+            [
+            [credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
+             url: 'https://github.com/ThomasCookOnline/DigitalAutomationTesting.git'
+            ]
+        ]
+    ])
+
     runPipeline('githubflow') {
         appName = 'DigitalAutomationTesting'
         platform = 'nodejs'
