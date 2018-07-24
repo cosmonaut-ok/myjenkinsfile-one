@@ -2,9 +2,9 @@ import hudson.FilePath;
 
 node('linux') {
 
-    git credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a', url: '${scm_url}'
+    git credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a', url: 'https://github.com/ThomasCookOnline/DigitalAutomationTesting.git'
 
-    docker.image('${container}').inside("-u 1000:996") {
+    docker.image('node:8').inside("-u 1000:996") {
 
         // stage('motherfucker') {
         sh '''
