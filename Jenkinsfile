@@ -44,69 +44,48 @@ node('linux') {
     }
 }
 
-def getDirectoryFiles(dir)
-{
-    def rootDir = pwd()
-    def list = []
+// def create_automation_job (name, scm_url = "https://github.com/ThomasCookOnline/DigitalAutomationTesting.git",
+//                            branch = "*/master", args = "themotherfucker", container='node:8')
+// {
+// // def hello () {
+//     def scm = new GitSCM(scm_url)
+//     scm.branches = [new BranchSpec(branch)];
 
-    def listDir = new File("${rootDir}/${dir}")
-    listDir.eachFileRecurse (FileType.FILES) { file ->
-        list << file
-    }
-    return list
-}
+//     def allure_path = 'allure-results'
 
-def loadResource(file)
-{
-    def rootDir = pwd()
-    // println("Current Directory from loadResource: " + rootDir)
+//     def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
+//         """
+// import hudson.FilePath;
 
-    String fileContents = new File("${rootDir}/${file}").text
-    return fileContents
-}
+// node('linux') {
 
-def create_automation_job (name, scm_url = "https://github.com/ThomasCookOnline/DigitalAutomationTesting.git",
-                           branch = "*/master", args = "themotherfucker", container='node:8')
-{
-// def hello () {
-    def scm = new GitSCM(scm_url)
-    scm.branches = [new BranchSpec(branch)];
+//     git credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a', url: '${scm_url}'
 
-    def allure_path = 'allure-results'
+//     docker.image('${container}').inside("-u 1000:996") {
 
-    def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(
-        """
-import hudson.FilePath;
+//         // stage('motherfucker') {
+//         sh '''
+//         set -x
 
-node('linux') {
+//     npm prune
+//     npm install
+//     rm -rf ${allure_path}
+//     node run ${args}
+//     '''
 
-    git credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a', url: '${scm_url}'
+//         // allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
+//         // }
+//     }
+// }
 
-    docker.image('${container}').inside("-u 1000:996") {
+// """, true)
 
-        // stage('motherfucker') {
-        sh '''
-        set -x
+//     def parent = Jenkins.instance
+//     def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, name)
+//     job.definition = flowDefinition
 
-    npm prune
-    npm install
-    rm -rf ${allure_path}
-    node run ${args}
-    '''
-
-        // allure includeProperties: false, jdk: '', results: [[path: '${allure_path}']]
-        // }
-    }
-}
-
-""", true)
-
-    def parent = Jenkins.instance
-    def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, name)
-    job.definition = flowDefinition
-
-    parent.reload()
-}
+//     parent.reload()
+// }
 
 
 // def create_job_view(name)
