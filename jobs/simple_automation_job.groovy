@@ -8,14 +8,6 @@ node('linux') {
                                     repository: 'jenkins-libs',
                                     traits: [headRegexFilter('TESTAUTO-1532-flow-for-test-automation')]))
 
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']],
-              doGenerateSubmoduleConfigurations: false,
-              extensions: [],
-              submoduleCfg: [],
-              userRemoteConfigs:
-              [[credentialsId: 'b3cae613-c8f3-4f12-bcd5-75988c058d9a',
-                url: 'https://github.com/ThomasCookOnline/DigitalAutomationTesting.git']]])
-
     checkout([
         $class: 'GitSCM',
         branches: [[name: '*/master']],
@@ -37,6 +29,8 @@ node('linux') {
             ]
         ]
     ])
+
+    scm checkout
 
     runPipeline('githubflow') {
         appName = 'DigitalAutomationTesting'
