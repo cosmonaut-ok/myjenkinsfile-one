@@ -8,7 +8,7 @@ import groovy.io.FileType;
 import jenkins.model.Jenkins
 import hudson.model.ListView
 
-import com.elevenware.jenkins.pipelines.functions.Filesystem
+// import com.elevenware.jenkins.pipelines.functions.Filesystem
 import com.elevenware.jenkins.pipelines.helpers.ManageView
 import com.elevenware.jenkins.pipelines.helpers.JobFromFile
 
@@ -34,9 +34,8 @@ node('linux') {
             zzz.each {
                 echo "${it}\n"
             }
-
             manageView.createJenkinsView('my_view')
-            jobCreator.jobFromFile("simple_automation_job")
+            jobCreator.jobFromFile("jobs/simple_automation_job")
 
         } else {
             echo 'I execute elsewhere'
