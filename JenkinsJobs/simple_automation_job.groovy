@@ -32,6 +32,8 @@ node('linux') {
 
     scm checkout
 
+
+
     runPipeline('githubflow') {
         appName = 'DigitalAutomationTesting'
         platform = 'nodejs'
